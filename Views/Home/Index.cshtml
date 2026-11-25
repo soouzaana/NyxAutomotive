@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<p class="intro">Visão geral da locadora.</p>
+
+<section class="cards">
+    <div class="card">
+        <span class="card-rotulo">Total de veículos</span>
+        <strong class="card-valor">@ViewBag.TotalVeiculos</strong>
+    </div>
+    <div class="card">
+        <span class="card-rotulo">Disponíveis</span>
+        <strong class="card-valor">@ViewBag.Disponiveis</strong>
+    </div>
+    <div class="card">
+        <span class="card-rotulo">Alugados</span>
+        <strong class="card-valor">@ViewBag.Alugados</strong>
+    </div>
+    <div class="card">
+        <span class="card-rotulo">Clientes</span>
+        <strong class="card-valor">@ViewBag.TotalClientes</strong>
+    </div>
+    <div class="card">
+        <span class="card-rotulo">Reservas</span>
+        <strong class="card-valor">@ViewBag.TotalReservas</strong>
+    </div>
+</section>
+
+<section class="painel">
+    <h2>Acesso rápido</h2>
+    <div class="acoes">
+        <a class="botao" asp-controller="Reservas" asp-action="Create">Nova reserva</a>
+        <a class="botao botao-claro" asp-controller="Veiculos" asp-action="Create">Cadastrar veículo</a>
+        <a class="botao botao-claro" asp-controller="Clientes" asp-action="Create">Cadastrar cliente</a>
+        <a class="botao botao-claro" asp-controller="Algoritmos" asp-action="Index">Ver algoritmos</a>
+    </div>
+</section>

@@ -1,0 +1,116 @@
+@model ResultadoAlgoritmo
+@{
+    ViewData["Title"] = "Algoritmos";
+    string acao = ViewBag.Acao;
+}
+
+<p class="intro">
+    Demonstração dos algoritmos implementados manualmente em C# (pasta <code>Services</code>) sobre uma
+    <code>List&lt;Veiculo&gt;</code> com @ViewBag.TotalVeiculos veículos.
+</p>
+
+<section class="grade-algoritmos">
+
+    <form method="get" class="painel mini-form @(acao == "linear" ? "em-uso" : "")">
+        <input type="hidden" name="acao" value="linear" />
+        <span class="etiqueta">Busca Linear</span>
+        <h3>Buscar por placa ou modelo</h3>
+        <input type="text" name="termo" placeholder="Ex.: Civic ou QWE1A23" value="@(acao == "linear" ? ViewBag.Termo : "")" />
+        <button type="submit" class="botao">Buscar</button>
+    </form>
+
+    <form method="get" class="painel mini-form @(acao == "binaria" ? "em-uso" : "")">
+        <input type="hidden" name="acao" value="binaria" />
+        <span class="etiqueta">Busca Binária</span>
+        <h3>Buscar por ID</h3>
+        <input type="number" name="id" min="1" placeholder="Ex.: 7" value="@(acao == "binaria" ? ViewBag.Id : "")" />
+        <button type="submit" class="botao">Buscar</button>
+    </form>
+
+    <form method="get" class="painel mini-form @(acao == "bubble" ? "em-uso" : "")">
+        <input type="hidden" name="acao" value="bubble" />
+        <span class="etiqueta">Bubble Sort</span>
+        <h3>Ordenar pelo valor da diária</h3>
+        <button type="submit" class="botao">Ordenar</button>
+    </form>
+
+    <form method="get" class="painel mini-form @(acao == "insertion" ? "em-uso" : "")">
+        <input type="hidden" name="acao" value="insertion" />
+        <span class="etiqueta">Insertion Sort</span>
+        <h3>Ordenar pelo ano</h3>
+        <button type="submit" class="botao">Ordenar</button>
+    </form>
+
+    <form method="get" class="painel mini-form @(acao == "disponiveis" ? "em-uso" : "")">
+        <input type="hidden" name="acao" value="disponiveis" />
+        <span class="etiqueta">Seleção</span>
+        <h3>Veículos disponíveis</h3>
+        <button type="submit" class="botao">Filtrar</button>
+    </form>
+
+    <form method="get" class="painel mini-form @(acao == "categoria" ? "em-uso" : "")">
+        <input type="hidden" name="acao" value="categoria" />
+        <span class="etiqueta">Seleção</span>
+        <h3>Veículos por categoria</h3>
+        <select name="categoriaId" asp-items="(SelectList)ViewBag.Categorias">
+            <option value="">Selecione...</option>
+        </select>
+        <button type="submit" class="botao">Filtrar</button>
+    </form>
+</section>
+
+@if (Model != null)
+{
+    <section class="painel resultado">
+        <div class="resultado-topo">
+            <span class="etiqueta etiqueta-forte">@Model.Algoritmo</span>
+            <span class="etiqueta">@Model.Complexidade</span>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Descricao))
+        {
+            <p class="descricao">@Model.Descricao</p>
+        }
+        @if (!string.IsNullOrEmpty(Model.Detalhe))
+        {
+            <p class="detalhe">@Model.Detalhe</p>
+        }
+        @if (!string.IsNullOrEmpty(Model.Mensagem))
+        {
+            <p class="vazio">@Model.Mensagem</p>
+        }
+
+        @if (Model.Veiculos.Count > 0)
+        {
+            <div class="tabela-area">
+                <table class="tabela">
+                    <thead>
+                        <tr><th>#</th><th>ID</th><th>Marca</th><th>Modelo</th><th>Ano</th><th>Placa</th><th>Categoria</th><th>Diária</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        @{ int posicao = 1; }
+                        @foreach (var v in Model.Veiculos)
+                        {
+                            <tr>
+                                <td class="posicao">@(posicao++)</td>
+                                <td>@v.Id</td>
+                                <td>@v.Marca</td>
+                                <td>@v.Modelo</td>
+                                <td>@v.Ano</td>
+                                <td>@v.Placa</td>
+                                <td>@v.Categoria?.Nome</td>
+                                <td>@Formatacao.Moeda(v.ValorDiaria)</td>
+                                <td><span class="selo @(v.EstaDisponivel ? "selo-ok" : "selo-alugado")">@v.StatusTexto</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+}
+else
+{
+    <section class="painel">
+        <p class="vazio">Escolha uma operação acima para ver o resultado e qual algoritmo foi usado.</p>
+    </section>
+}

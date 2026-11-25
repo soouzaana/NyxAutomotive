@@ -1,0 +1,43 @@
+@model List<Reserva>
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<div class="barra">
+    <span class="intro">@Model.Count reserva(s) registrada(s)</span>
+    <a class="botao" asp-action="Create">Nova reserva</a>
+</div>
+
+<div class="tabela-area">
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th>ID</th><th>Cliente</th><th>Veículo</th><th>Retirada</th><th>Devolução</th>
+                <th>Diárias</th><th>Total</th><th>Status</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Cliente?.Nome</td>
+                    <td>@r.Veiculo?.Marca @r.Veiculo?.Modelo (@r.Veiculo?.Placa)</td>
+                    <td>@Formatacao.Data(r.DataRetirada)</td>
+                    <td>@Formatacao.Data(r.DataDevolucao)</td>
+                    <td>@r.QuantidadeDias()</td>
+                    <td>@Formatacao.Moeda(r.ValorTotal)</td>
+                    <td><span class="selo @(r.EstaAtiva ? "selo-ok" : "selo-cancelada")">@r.StatusTexto</span></td>
+                    <td class="acoes-linha">
+                        @if (r.EstaAtiva)
+                        {
+                            <form asp-action="Cancelar" asp-route-id="@r.Id" method="post" data-confirmar="Cancelar esta reserva e liberar o veículo?">
+                                <button type="submit" class="link-perigo">Cancelar</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

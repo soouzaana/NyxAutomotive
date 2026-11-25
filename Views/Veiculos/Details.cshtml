@@ -1,0 +1,20 @@
+@model Veiculo
+@{
+    ViewData["Title"] = "Detalhes do veículo";
+}
+<section class="painel painel-estreito">
+    <dl class="detalhes">
+        <dt>ID</dt><dd>@Model.Id</dd>
+        <dt>Marca</dt><dd>@Model.Marca</dd>
+        <dt>Modelo</dt><dd>@Model.Modelo</dd>
+        <dt>Ano</dt><dd>@Model.Ano</dd>
+        <dt>Placa</dt><dd>@Model.Placa</dd>
+        <dt>Categoria</dt><dd>@Model.Categoria?.Nome</dd>
+        <dt>Valor da diária</dt><dd>@Formatacao.Moeda(Model.ValorDiaria)</dd>
+        <dt>Status</dt><dd><span class="selo @(Model.EstaDisponivel ? "selo-ok" : "selo-alugado")">@Model.StatusTexto</span></dd>
+    </dl>
+    <div class="acoes">
+        <a class="botao" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+        <a class="botao botao-claro" asp-action="Index">Voltar</a>
+    </div>
+</section>

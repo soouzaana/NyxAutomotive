@@ -1,0 +1,51 @@
+@{
+    var pagina = ViewContext.RouteData.Values["controller"]?.ToString();
+    string Ativo(string nome) => pagina == nome ? "ativo" : "";
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] — NYX Automotive</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <aside class="menu" id="menu">
+        <a class="logo" asp-controller="Home" asp-action="Index">
+            <span class="logo-marca">NYX</span>
+            <span class="logo-sub">AUTOMOTIVE</span>
+        </a>
+        <nav>
+            <a class="@Ativo("Home")" asp-controller="Home" asp-action="Index">Dashboard</a>
+            <a class="@Ativo("Veiculos")" asp-controller="Veiculos" asp-action="Index">Veículos</a>
+            <a class="@Ativo("Clientes")" asp-controller="Clientes" asp-action="Index">Clientes</a>
+            <a class="@Ativo("Reservas")" asp-controller="Reservas" asp-action="Index">Reservas</a>
+            <a class="@Ativo("Categorias")" asp-controller="Categorias" asp-action="Index">Categorias</a>
+            <a class="@Ativo("Algoritmos")" asp-controller="Algoritmos" asp-action="Index">Algoritmos</a>
+        </nav>
+        <p class="slogan">Elegância em cada caminho</p>
+    </aside>
+
+    <div class="conteudo">
+        <header class="topo">
+            <button type="button" class="botao-menu" id="botaoMenu" aria-label="Abrir menu">☰</button>
+            <h1>@ViewData["Title"]</h1>
+        </header>
+
+        <main>
+            @if (TempData["Mensagem"] != null)
+            {
+                <div class="aviso aviso-ok">@TempData["Mensagem"]</div>
+            }
+            @if (TempData["Erro"] != null)
+            {
+                <div class="aviso aviso-erro">@TempData["Erro"]</div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/site.js"></script>
+</body>
+</html>

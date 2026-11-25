@@ -1,0 +1,7 @@
+@model Cliente
+@{
+    ViewData["Title"] = "Editar cliente";
+}
+<section class="painel painel-estreito">
+    @await Html.PartialAsync("_Form", Model)
+</section>

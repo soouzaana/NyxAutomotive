@@ -1,0 +1,7 @@
+@model Veiculo
+@{
+    ViewData["Title"] = "Novo veículo";
+}
+<section class="painel painel-estreito">
+    @await Html.PartialAsync("_Form", Model)
+</section>

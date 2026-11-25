@@ -1,0 +1,47 @@
+@model Veiculo
+
+<form method="post" class="formulario">
+    @await Html.PartialAsync("_Validacao")
+
+    <div class="campo">
+        <label asp-for="Marca">Marca</label>
+        <input asp-for="Marca" />
+        <span asp-validation-for="Marca" class="erro-campo"></span>
+    </div>
+    <div class="campo">
+        <label asp-for="Modelo">Modelo</label>
+        <input asp-for="Modelo" />
+        <span asp-validation-for="Modelo" class="erro-campo"></span>
+    </div>
+    <div class="linha-campos">
+        <div class="campo">
+            <label asp-for="Ano">Ano</label>
+            <input asp-for="Ano" type="number" />
+            <span asp-validation-for="Ano" class="erro-campo"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="Placa">Placa</label>
+            <input asp-for="Placa" placeholder="ABC1D23" maxlength="8" />
+            <span asp-validation-for="Placa" class="erro-campo"></span>
+        </div>
+    </div>
+    <div class="linha-campos">
+        <div class="campo">
+            <label asp-for="CategoriaId">Categoria</label>
+            <select asp-for="CategoriaId" asp-items="(SelectList)ViewBag.Categorias">
+                <option value="0">Selecione...</option>
+            </select>
+            <span asp-validation-for="CategoriaId" class="erro-campo"></span>
+        </div>
+        <div class="campo">
+            <label asp-for="ValorDiaria">Valor da diária (R$)</label>
+            <input asp-for="ValorDiaria" type="number" step="0.01" min="0" />
+            <span asp-validation-for="ValorDiaria" class="erro-campo"></span>
+        </div>
+    </div>
+
+    <div class="acoes">
+        <button type="submit" class="botao">Salvar</button>
+        <a class="botao botao-claro" asp-action="Index">Cancelar</a>
+    </div>
+</form>

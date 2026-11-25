@@ -1,0 +1,28 @@
+@model List<Categoria>
+@{
+    ViewData["Title"] = "Categorias";
+    var quantidades = (Dictionary<int, int>)ViewBag.Quantidades;
+}
+
+<div class="barra">
+    <span class="intro">@Model.Count categoria(s)</span>
+    <a class="botao" asp-action="Create">Nova categoria</a>
+</div>
+
+<div class="tabela-area">
+    <table class="tabela">
+        <thead>
+            <tr><th>ID</th><th>Nome</th><th>Veículos</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.Id</td>
+                    <td>@c.Nome</td>
+                    <td>@quantidades[c.Id]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

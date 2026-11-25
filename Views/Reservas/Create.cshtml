@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Nova reserva";
+    var clientes = (List<Cliente>)ViewBag.Clientes;
+    var veiculos = (List<Veiculo>)ViewBag.Veiculos;
+    string hoje = DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+<section class="painel painel-estreito">
+    @if (veiculos.Count == 0 || clientes.Count == 0)
+    {
+        <p>É necessário ter ao menos um cliente cadastrado e um veículo disponível para registrar uma reserva.</p>
+        <div class="acoes"><a class="botao botao-claro" asp-action="Index">Voltar</a></div>
+    }
+    else
+    {
+        <form asp-action="Create" method="post" class="formulario" id="formReserva">
+            <div class="campo">
+                <label for="clienteId">Cliente</label>
+                <select id="clienteId" name="clienteId" required>
+                    <option value="">Selecione...</option>
+                    @foreach (var c in clientes)
+                    {
+                        <option value="@c.Id">@c.Nome — @c.Cpf</option>
+                    }
+                </select>
+            </div>
+            <div class="campo">
+                <label for="veiculoId">Veículo disponível</label>
+                <select id="veiculoId" name="veiculoId" required>
+                    <option value="">Selecione...</option>
+                    @foreach (var v in veiculos)
+                    {
+                        <option value="@v.Id" data-diaria="@v.ValorDiaria.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)">
+                            @v.Marca @v.Modelo (@v.Placa) — @Formatacao.Moeda(v.ValorDiaria)/dia
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="linha-campos">
+                <div class="campo">
+                    <label for="retirada">Data de retirada</label>
+                    <input type="date" id="retirada" name="retirada" value="@hoje" min="@hoje" required />
+                </div>
+                <div class="campo">
+                    <label for="devolucao">Data de devolução</label>
+                    <input type="date" id="devolucao" name="devolucao" value="@hoje" min="@hoje" required />
+                </div>
+            </div>
+
+            <div class="resumo" id="resumo">Selecione o veículo e as datas para ver o valor total.</div>
+
+            <div class="acoes">
+                <button type="submit" class="botao">Registrar reserva</button>
+                <a class="botao botao-claro" asp-action="Index">Cancelar</a>
+            </div>
+        </form>
+    }
+</section>

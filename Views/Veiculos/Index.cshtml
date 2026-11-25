@@ -1,0 +1,42 @@
+@model List<Veiculo>
+@{
+    ViewData["Title"] = "Veículos";
+}
+
+<div class="barra">
+    <span class="intro">@Model.Count veículo(s) na frota</span>
+    <a class="botao" asp-action="Create">Novo veículo</a>
+</div>
+
+<div class="tabela-area">
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th>ID</th><th>Marca</th><th>Modelo</th><th>Ano</th><th>Placa</th>
+                <th>Categoria</th><th>Diária</th><th>Status</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    <td>@v.Id</td>
+                    <td>@v.Marca</td>
+                    <td>@v.Modelo</td>
+                    <td>@v.Ano</td>
+                    <td>@v.Placa</td>
+                    <td>@v.Categoria?.Nome</td>
+                    <td>@Formatacao.Moeda(v.ValorDiaria)</td>
+                    <td><span class="selo @(v.EstaDisponivel ? "selo-ok" : "selo-alugado")">@v.StatusTexto</span></td>
+                    <td class="acoes-linha">
+                        <a asp-action="Details" asp-route-id="@v.Id">Detalhes</a>
+                        <a asp-action="Edit" asp-route-id="@v.Id">Editar</a>
+                        <form asp-action="Delete" asp-route-id="@v.Id" method="post" data-confirmar="Excluir o veículo @v.Marca @v.Modelo?">
+                            <button type="submit" class="link-perigo">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
