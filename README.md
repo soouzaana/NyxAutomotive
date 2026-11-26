@@ -2,12 +2,16 @@
 
 Sistema web simples de locação de veículos, desenvolvido em C# com ASP.NET Core MVC para um trabalho acadêmico de Algoritmos e Estruturas de Dados. Permite cadastrar veículos, clientes e categorias, consultar a frota e registrar reservas. A página **Algoritmos** demonstra busca, ordenação e seleção implementadas manualmente.
 
-## Participantes
-- Ana Beatriz
-- Ana Maria
+## Integrantes
+
+- Ana Beatriz Santos Martins
+- Ana Maria Brito
 - Karen Yamaguchi
-- Lúcia Viana
-- Maria Júlya
+- Lucia Viana da Silva Fontenele
+- Maria Julya Esteves
+
+Faculdade UniSapiens – Sistemas de Informação – Algoritmos e Estruturas de Dados II
+Professor(a): Rosangela Silva Cunha
 
 ## Tecnologias
 
